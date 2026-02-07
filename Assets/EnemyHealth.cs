@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+// 1. Thay 'MonoBehaviour' bằng 'Health' để kế thừa
+public class EnemyHealth : Health
 {
-    public GameObject explosionPrefab;
+    // 2. Xóa biến explosionPrefab (vì lớp Health đã có rồi)
 
-    private void OnTriggerEnter2D(Collider2D collision) => Die();
+    // 3. Xóa OnTriggerEnter2D (vì lớp Health đã xử lý rồi)
 
-    private void Die()
+    // 4. Ghi đè hàm Die() để in log theo yêu cầu (trang 7)
+    protected override void Die()
     {
-        var explosion = Instantiate(explosionPrefab, transform.position,
-        transform.rotation);
-        Destroy(explosion, 1);
-        Destroy(gameObject);
+        base.Die(); // Chạy lệnh nổ và hủy của lớp cha
+        Debug.Log("Enemy died"); // In thông báo riêng
     }
 }
